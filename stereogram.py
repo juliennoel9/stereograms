@@ -88,6 +88,31 @@ def calcul_aretes_polyedre_regulier(P, nbPointParFace):
 
     return aretes
 
+def testAffichagePts():
+    xg = []
+    yg = []
+    xd = []
+    yd = []
+    e = 7  # distance entre les 2 yeux (en cm)
+    f = 50  # distance entre les yeux et le plan de projection (en cm)
+    for i in range(0,40):
+        x = randint(-12,24)
+        y = randint(-12,24)
+        if(abs(y)>8 or x>12 or -6>x):
+            z = 80
+        else:
+            z = ((x*x)/4)-((3*x)/2)+62
+        xg.append((f * x) / z)
+        yg.append((f * y) / z)
+        xd.append((f * (x - e)) / (z + e))
+        yd.append((f * y) / z)
+    xg = np.array(xg)
+    yg = np.array(yg)
+    xd = np.array(xd)
+    yd = np.array(yd)
+    plt.plot(xg,yg, '.', markersize=30)
+    plt.plot(xd,yd, '.', markersize=30)
+    plt.show()
 
 if __name__ == '__main__':
     # Pour rendre intéractif le plot
