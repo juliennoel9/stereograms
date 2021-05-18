@@ -141,15 +141,14 @@ def approxDirect(a, b, c, d, nbY, nbPts, f, e):
         xyP = []
         for j in range(nbPts):
             xyP.append([randint(a, b), c+((d-c)/nbY)*k])
-            xyI = []
-            xyI.append(calculTd(xyP[j][0], xyP[j][1], calculZ(xyP[j][0], xyP[j][1]), f, e))
+            xyI = [calculTd(xyP[j][0], xyP[j][1], calculZ(xyP[j][0], xyP[j][1]), f, e)]
             nbI = 1
             while xyI[nbI - 1][0] < b:
                 delta = calculDelta(xyP[j], f, e)
                 sAppro = calculSApprox(xyI[nbI - 1], f, e, delta)
                 xyI.append([xyI[nbI - 1][0] + sAppro, c+((d-c)/nbY)*k])
                 nbI = nbI + 1
-            plt.plot(np.array(xyI)[:, 0], np.array(xyI)[:, 1], '.', markersize=20)
+            plt.plot(np.array(xyI)[:, 0], np.array(xyI)[:, 1], '.', markersize=10)
     plt.show()
 
 
@@ -199,4 +198,4 @@ if __name__ == '__main__':
     #                      [1, 0, z + 1], [1, 2, z + 1]])
     # affichage(polyedre, calcul_aretes_polyedre_regulier(polyedre, 8))
     # affichage_transformations(polyedre, calcul_aretes_polyedre_regulier(polyedre, 8))
-    approxDirect(-12, 24, 5, 15, 10, 15, 40, 7)
+    approxDirect(-12, 24, 5, 15, 50, 15, 40, 7)
