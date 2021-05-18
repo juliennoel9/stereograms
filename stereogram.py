@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 from random import randint
 
+
 def affichage(P, aretes=None):
     plt.axes(projection="3d")
     x = P[:, 0]
@@ -52,7 +53,7 @@ def affichage_transformations(P, aretes=None):
         for i in range(len(P)):
             for j in range(i):
                 aretes.append([i, j])
- 
+
         aretes = np.array(aretes)
 
     for a in aretes:
@@ -88,6 +89,7 @@ def calcul_aretes_polyedre_regulier(P, nbPointParFace):
 
     return aretes
 
+
 def testAffichagePts():
     xg = []
     yg = []
@@ -95,13 +97,13 @@ def testAffichagePts():
     yd = []
     e = 7  # distance entre les 2 yeux (en cm)
     f = 50  # distance entre les yeux et le plan de projection (en cm)
-    for i in range(0,40):
-        x = randint(-12,24)
-        y = randint(-12,24)
-        if(abs(y)>8 or x>12 or -6>x):
+    for i in range(0, 40):
+        x = randint(-12, 24)
+        y = randint(-12, 24)
+        if (abs(y) > 8 or x > 12 or -6 > x):
             z = 80
         else:
-            z = ((x*x)/4)-((3*x)/2)+62
+            z = ((x * x) / 4) - ((3 * x) / 2) + 62
         xg.append((f * x) / z)
         yg.append((f * y) / z)
         xd.append((f * (x - e)) / (z + e))
@@ -110,50 +112,69 @@ def testAffichagePts():
     yg = np.array(yg)
     xd = np.array(xd)
     yd = np.array(yd)
-    plt.plot(xg,yg, '.', markersize=30)
-    plt.plot(xd,yd, '.', markersize=30)
+    plt.plot(xg, yg, '.', markersize=30)
+    plt.plot(xd, yd, '.', markersize=30)
     plt.show()
 
-def approxDirect(a,b,y,nbPts,f,e):
+
+def pointFixe(a, b, y, nbPts, f, e):
     xyP = []
     # Génération des pts
     for j in range(nbPts):
         print(j)
-        xyP.append([randint(a,b), y])
-        xyI = []
-        xyI.append(calculTd(xyP[j][0],xyP[j][1],calculZ(xyP[j][0],xyP[j][1]),f,e))
-        nbI=1
-        while xyI[nbI-1][0] < b:
-            delta = calculDelta(xyP[j],f,e)
-            sAppro = calculSApprox(xyI[nbI-1],f,e,delta)
-            xp = calculXp(xyI[nbI-1][0],sAppro,e)
-            xyI.append(calculTd(xp,y,calculZ(xp,y),f,e))
-            nbI = nbI+1
+        xyP.append([randint(a, b), y])
+        xyI = [calculTd(xyP[j][0], xyP[j][1], calculZ(xyP[j][0], xyP[j][1]), f, e)]
+        nbI = 1
+        while xyI[nbI - 1][0] < b:
+            delta = calculDelta(xyP[j], f, e)
+            sAppro = calculSApprox(xyI[nbI - 1], f, e, delta)
+            xp = calculXp(xyI[nbI - 1][0], sAppro, e)
+            xyI.append(calculTd(xp, y, calculZ(xp, y), f, e))
+            nbI = nbI + 1
         print(len(xyI))
-        
-
-        plt.plot(xyI,'.',markersize=20)
-        plt.show()
+        plt.plot(xyI, '.', markersize=20)
+    plt.show()
 
 
-def calculTd(x,y,z,f,e):
-    return [ (f * (x - e)) / (z + e), (f * y) / z]
+def approxDirect(a, b, c, d, nbY, nbPts, f, e):
+    for k in range(nbY):
+        xyP = []
+        for j in range(nbPts):
+            xyP.append([randint(a, b), c+((d-c)/nbY)*k])
+            xyI = []
+            xyI.append(calculTd(xyP[j][0], xyP[j][1], calculZ(xyP[j][0], xyP[j][1]), f, e))
+            nbI = 1
+            while xyI[nbI - 1][0] < b:
+                delta = calculDelta(xyP[j], f, e)
+                sAppro = calculSApprox(xyI[nbI - 1], f, e, delta)
+                xyI.append([xyI[nbI - 1][0] + sAppro, c+((d-c)/nbY)*k])
+                nbI = nbI + 1
+            plt.plot(np.array(xyI)[:, 0], np.array(xyI)[:, 1], '.', markersize=20)
+    plt.show()
 
-def calculZ(x,y):
-    if(abs(y)>8 or x>12 or -6>x):
+
+def calculTd(x, y, z, f, e):
+    return [(f * (x - e)) / (z + e), y]
+
+
+def calculZ(x, y):
+    if abs(y) > 8 or x > 12 or -6 > x:
         z = 80
     else:
-        z = ((x*x)/4)-((3*x)/2)+62
+        z = ((x * x) / 4) - ((3 * x) / 2) + 62
     return z
 
-def calculDelta(xyP,f,e):
-    return (1-(f/calculZ(xyP[0],xyP[1])))*e
 
-def calculSApprox(xyI,f,e,delta):
-    return (1-(f/calculZ(xyI[0]+(delta/2),xyI[1])))*e
+def calculDelta(xyP, f, e):
+    return (1 - (f / calculZ(xyP[0], xyP[1]))) * e
 
-def calculXp(xI,s,e):
-    return xI/(1-(s/e))
+
+def calculSApprox(xyI, f, e, delta):
+    return (1 - (f / calculZ(xyI[0] + (delta / 2), xyI[1]))) * e
+
+
+def calculXp(xI, s, e):
+    return xI / (1 - (s / e))
 
 
 if __name__ == '__main__':
@@ -178,4 +199,4 @@ if __name__ == '__main__':
     #                      [1, 0, z + 1], [1, 2, z + 1]])
     # affichage(polyedre, calcul_aretes_polyedre_regulier(polyedre, 8))
     # affichage_transformations(polyedre, calcul_aretes_polyedre_regulier(polyedre, 8))
-    approxDirect(-12,24,2,5,40,7)
+    approxDirect(-12, 24, 5, 15, 10, 15, 40, 7)
