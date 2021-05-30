@@ -123,7 +123,7 @@ def pointFixe(a, b, c, d, nbY, nbPts, f, e):
     plt.show()
 
 
-def approxDirect(a, b, c, d, nbY, nbPts, f, e):
+def approxDirect(a, b, c, d, nbY, nbPts, f, e, markersize):
     plt.figure(dpi=300)
     for k in range(nbY):
         xyP = []
@@ -136,7 +136,7 @@ def approxDirect(a, b, c, d, nbY, nbPts, f, e):
                 sAppro = calculSApprox(xyI[nbI - 1], f, e, delta)
                 xyI.append([xyI[nbI - 1][0] + sAppro, c + ((d - c) / nbY) * k])
                 nbI = nbI + 1
-            plt.plot(np.array(xyI)[:, 0], np.array(xyI)[:, 1], '.', markersize=1,color='black')
+            plt.plot(np.array(xyI)[:, 0], np.array(xyI)[:, 1], '.', markersize=markersize,color='black')
     plt.show()
 
 
@@ -229,5 +229,15 @@ if __name__ == '__main__':
     # Figure n°11 rapport
     # affichage_transformations(pentagone, calcul_aretes_polyedre_regulier(pentagone,5))
 
-    test(800, 40, 7)
-    approxDirect(-20, 25, -11, 20, 150, 50, 12, 7)
+    # Figure 12
+    ptsAleaSurface(800,40,7)
+    # Figure 13
+    ptsAleaSurface(800,12,7)
+    # Figure 14
+    approxDirect(-20, 25, -11, 20, 150, 20, 12, 7, 3)
+    # Figure 15
+    approxDirect(-20, 25, -11, 20, 150, 50, 12, 7, 2)
+    # Figure 16
+    approxDirect(-20, 25, -11, 20, 150, 50, 12, 7, 3)
+    # Figure 17
+    approxDirect(-20, 25, -11, 20, 150, 50, 12, 7, 1)
