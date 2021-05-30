@@ -189,22 +189,45 @@ if __name__ == '__main__':
     # mpl.use('macosx')
 
     # Tetraedre = [P1,P2,P3,P4]
-    # tetraedre = np.array([[1.2, -0.5, 65], [3, 1.5, 63], [4, -1, 62], [1.8, -1.5, 62]])
+    tetraedre = np.array([[1.2, -0.5, 65], [3, 1.5, 63], [4, -1, 62], [1.8, -1.5, 62]])
+    # Figure n°1 rapport
     # affichage(tetraedre)
+    # Figure n°5 rapport
     # affichage_transformations(tetraedre)
 
-    # # Prisme = [P1,P2,P3,P4,P5,P6]
-    # prisme = np.array([[1, -1, 65], [1.8, -2, 62], [4.2, -1.5, 65], [1, 2, 65], [1.8, 1, 62], [4.2, 1.5, 65]])
-    # prisme_aretes = np.array([[0, 1], [0, 2], [0, 3], [1, 2], [1, 4], [2, 5], [3, 4], [3, 5], [4, 5]])
+    # Prisme = [P1,P2,P3,P4,P5,P6]
+    prisme = np.array([[1, -1, 65], [1.8, -2, 62], [4.2, -1.5, 65], [1, 2, 65], [1.8, 1, 62], [4.2, 1.5, 65]])
+    prisme_aretes = np.array([[0, 1], [0, 2], [0, 3], [1, 2], [1, 4], [2, 5], [3, 4], [3, 5], [4, 5]])
+    # Figure n°2 rapport
+    # affichage(prisme)
+    # Figure n°3 rapport
     # affichage(prisme, prisme_aretes)
+    # Figure n°6 rapport
     # affichage_transformations(prisme, prisme_aretes)
 
-    # # Polyedre
-    # z = 64
-    # polyedre = np.array([[0, 2, z], [0, 3, z], [3, 3, z], [3, 2, z], [2, 2, z], [2, 0, z], [1, 0, z], [1, 2, z],
-    #                      [0, 2, z + 1], [0, 3, z + 1], [3, 3, z + 1], [3, 2, z + 1], [2, 2, z + 1], [2, 0, z + 1],
-    #                      [1, 0, z + 1], [1, 2, z + 1]])
+    # Polyedre
+    z = 64
+    polyedre = np.array([[0, 2, z], [0, 3, z], [3, 3, z], [3, 2, z], [2, 2, z], [2, 0, z], [1, 0, z], [1, 2, z],
+                         [0, 2, z + 1], [0, 3, z + 1], [3, 3, z + 1], [3, 2, z + 1], [2, 2, z + 1], [2, 0, z + 1],
+                         [1, 0, z + 1], [1, 2, z + 1]])
+    # Figure n°4 rapport
     # affichage(polyedre, calcul_aretes_polyedre_regulier(polyedre, 8))
+    # Figure n°7 rapport
     # affichage_transformations(polyedre, calcul_aretes_polyedre_regulier(polyedre, 8))
+
+    # Carré
+    carre = np.array([[0,0,z],[0,4,z],[4,4,z],[4,0,z],[0,0,z+4],[0,4,z+4],[4,4,z+4],[4,0,z+4]])
+    # Figure n°8 rapport
+    # affichage(carre, calcul_aretes_polyedre_regulier(carre, 4))
+    # Figure n°9 rapport
+    # affichage_transformations(carre, calcul_aretes_polyedre_regulier(carre, 4))
+
+    # Pentagone
+    pentagone = np.array([[1,0,z],[0.309,0.951,z],[-0.809,0.588,z],[-0.809,-0.588,z],[0.309,-0.951,z],[1,0,z+1],[0.309,0.951,z+1],[-0.809,0.588,z+1],[-0.809,-0.588,z+1],[0.309,-0.951,z+1]])
+    # Figure n°10 rapport
+    # affichage(pentagone, calcul_aretes_polyedre_regulier(pentagone,5))
+    # Figure n°11 rapport
+    # affichage_transformations(pentagone, calcul_aretes_polyedre_regulier(pentagone,5))
+
     test(800, 40, 7)
     approxDirect(-20, 25, -11, 20, 150, 50, 12, 7)
